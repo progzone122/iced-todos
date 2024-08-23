@@ -1,6 +1,6 @@
 mod components;
 
-use iced::widget::{column, Container, row, text, text_input, button};
+use iced::widget::{column, Container, row, text, text_input, button, scrollable, Scrollable};
 use iced::{executor, Application, Command, Element, Renderer, Settings, Theme, Length};
 
 // components
@@ -11,7 +11,7 @@ struct ToDoList {
     input1: String,
     // components
     filter_status_buttons: FilterStatusButtons,
-    tasks: Vec<Task>
+    tasks: Vec<Task>,
 }
 
 #[derive(Debug, Clone)]
@@ -33,9 +33,9 @@ impl Application for ToDoList {
         (
             Self {
                 input1: "".to_string(),
-                // компоненты
+                // components
                 filter_status_buttons: FilterStatusButtons::new(),
-                tasks: vec![]
+                tasks: vec![],
             },
             Command::none(),
         )
@@ -95,7 +95,7 @@ impl Application for ToDoList {
                 .center_x()
                 .padding([7, 30, 0, 30]),
 
-            tasks_column
+            scrollable(tasks_column)
         ]
             .into()
     }
