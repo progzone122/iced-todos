@@ -48,13 +48,13 @@ impl FilterStatusButtons {
     pub fn update(&mut self, message: FilterStatusButtonsMessage) {
         match message {
             FilterStatusButtonsMessage::AllClicked => {
-                println!("All button clicked");
+                self.active_state = 0;
             }
             FilterStatusButtonsMessage::ActiveClicked => {
-                println!("Active button clicked");
+                self.active_state = 1;
             }
             FilterStatusButtonsMessage::DoneClicked => {
-                println!("Done button clicked");
+                self.active_state = 2;
             }
         }
     }

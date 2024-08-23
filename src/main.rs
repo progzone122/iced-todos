@@ -71,7 +71,15 @@ impl Application for ToDoList {
     }
 
     fn view(&self) -> Element<'_, Self::Message, Self::Theme, Renderer> {
-        let tasks_column = column(self.tasks.iter().map(|task| task.view()).collect::<Vec<_>>())
+        let filtered_task = self.tasks.iter().filter(|task| {
+            match self.filter_status_buttons.active_state {
+                0 => true,
+                1 => !task.is_checked,
+                2 => task.is_checked,
+                _ => true
+            }
+        });
+        let tasks_column = column(filtered_task.map(|task| task.view()).collect::<Vec<_>>())
             .spacing(25)
             .padding(45);
 
@@ -96,6 +104,8 @@ impl Application for ToDoList {
                 .padding([7, 30, 0, 30]),
 
             scrollable(tasks_column)
+                .width(Length::Fill)
+                .height(Length::Fill)
         ]
             .into()
     }

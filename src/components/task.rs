@@ -5,7 +5,7 @@ use crate::Message;
 pub struct Task {
     pub id: usize,
     text: String,
-    is_checked: bool
+    pub is_checked: bool
 }
 #[derive(Clone, Debug)]
 pub enum TaskMessage {
