@@ -5,9 +5,6 @@ use iced::alignment::Horizontal;
 
 pub struct FilterStatusButtons {
     pub active_state: u8,
-    all: button::State,
-    active: button::State,
-    done: button::State,
 }
 #[derive(Clone, Debug)]
 pub enum FilterStatusButtonsMessage {
@@ -20,9 +17,6 @@ impl FilterStatusButtons {
     pub fn new() -> Self {
         Self {
             active_state: 0,
-            all: button::State::new(),
-            active: button::State::new(),
-            done: button::State::new(),
         }
     }
     pub fn view(&self) -> Element<'_, Message> {

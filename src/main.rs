@@ -20,7 +20,7 @@ pub enum Message {
     Input1Submit,
     // components
     FilterStatusButtonsMessage(FilterStatusButtonsMessage),
-    TaskMessage(usize, TaskMessage)
+    TaskMessage(usize, TaskMessage),
 }
 
 impl Application for ToDoList {
@@ -61,9 +61,16 @@ impl Application for ToDoList {
             Message::FilterStatusButtonsMessage(filter_message) => {
                 self.filter_status_buttons.update(filter_message);
             }
-            Message::TaskMessage(index, task_message) => {
-                if let Some(task) = self.tasks.iter_mut().find(|task| task.id == index) {
-                    task.update(task_message);
+            Message::TaskMessage(id, task_message) => {
+                match task_message {
+                    TaskMessage::CheckboxToggled(_) => {
+                        if let Some(task) = self.tasks.iter_mut().find(|task| task.id == id) {
+                            task.update(task_message);
+                        }
+                    }
+                    TaskMessage::DeleteButtonPressed => {
+                        self.tasks.retain(|task| task.id != id);
+                    }
                 }
             }
         }
